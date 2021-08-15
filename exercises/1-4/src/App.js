@@ -34,7 +34,6 @@ const App = () => {
   const createVotes = () => () => {
     const copy = [...votes]
     copy[selected] += 1
-    console.log(copy)
     setVotes(copy)
   }
   const aryMax = function (a, b) {return Math.max(a, b);}
