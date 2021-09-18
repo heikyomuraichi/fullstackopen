@@ -18,7 +18,10 @@ function App() {
     setWord(event.target.value)
     // search
     const searchResult = countries.filter(country =>
-      country.name.includes(word)
+      { const upperName = country.name.toUpperCase()
+        return upperName.indexOf(word.toUpperCase()) === -1 ? false : true
+      }
+      
     )
     setResult(searchResult)
   }
