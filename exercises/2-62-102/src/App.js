@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
+const baseUrl = 'http://localhost:3001/persons'
+
 const Filter =({newWord,search}) => {
   return(
     <div>
@@ -49,13 +51,12 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const hook  = () => {
     axios
-    .get('http://localhost:3001/persons')
+    .get(baseUrl)
     .then(response => {
       setPersons(response.data)
     })
   }
   useEffect(hook,[])
-  
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
@@ -69,7 +70,10 @@ const App = () => {
     if (check.length > 0){
       alert(`${newName} is already added to phonebook`)
     } else {
-      setPersons(persons.concat(personObject))
+      axios.post(baseUrl, personObject)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+        })
     }
 
   }
@@ -89,6 +93,8 @@ const App = () => {
       )
       setPersons(result)
   }
+
+
 
   return (
     <div>
